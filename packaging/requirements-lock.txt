@@ -1,0 +1,39 @@
+# LT2 Thermometry v1.0 — locked build requirements
+# Use Python 3.12 for all builds (PyInstaller + torch wheels are stable on 3.11/3.12).
+# Do NOT use the dev venv (Python 3.14) for packaging.
+#
+# Install into a fresh venv:
+#   python3.12 -m venv .venv-build
+#   source .venv-build/bin/activate   (or .venv-build\Scripts\activate on Windows)
+#   pip install -r requirements-lock.txt
+#
+# torch: CPU-only wheel reduces bundle by ~1 GB vs GPU build.
+#   On macOS/Linux the --index-url below selects the CPU variant.
+#   On Windows, remove the index URL if you want CUDA support.
+
+# ── GUI ──────────────────────────────────────────────────────────────────────
+PySide6>=6.6,<7
+
+# ── Scientific stack ─────────────────────────────────────────────────────────
+numpy>=1.26,<3
+scipy>=1.12,<2
+pandas>=2.2,<3
+matplotlib>=3.8,<4
+scikit-learn>=1.4,<2
+joblib>=1.3
+
+# ── Tree ensembles ───────────────────────────────────────────────────────────
+xgboost>=2.0
+lightgbm>=4.3
+catboost>=1.2
+
+# ── Deep learning (CPU-only; see install note above) ─────────────────────────
+# Install separately so the --index-url does not affect other packages:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+# Pin handled via separate install step in build scripts.
+# Listed here so the intent is documented:
+# torch>=2.2,<3   <-- installed via build script with the CPU index URL
+
+# ── Build tool ───────────────────────────────────────────────────────────────
+pyinstaller>=6.5,<7
+pyinstaller-hooks-contrib>=2024.6

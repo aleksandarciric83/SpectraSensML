@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.spec.bak
+
+# Virtual environments
+.venv*/
+venv*/
+env*/
+
+# PyInstaller build artifacts
+build/
+*.manifest
+packaging/Output/
+
+# Test / cache
+.pytest_cache/
+cachedir/
+.cache/
+*.coverage
+htmlcov/
+
+# Raw spectra and result data (large, not source code)
+Spectra/
+Results*/
+AppResults*/
+results_*/
+
+# Old / scratch files
+Old/
+*.zip
+1.0/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Paper drafts (Word, PDFs except the Help PDF in assets)
+paper/
+*.docx
+*.pdf
+!lt2_gui/assets/*.pdf
+
+# Scratch scripts at root
+LT2_pipeline*.py
+LT2_pipeline*.md
+LT2_CNN_benchmark*.py
+LT2_NN_benchmark.py
+LT2_LIR_MAX.py
+LT2_pipeline_extended.py
+TermometrijaAnaliza_o.m
+benchmark_results.csv
+precision_accuracy_rmse_v*.svg
+README_LT2_GUI.md
