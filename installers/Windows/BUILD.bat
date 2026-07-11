@@ -53,10 +53,10 @@ REM ── Install dependencies ────────────────
 echo Installing dependencies (this may take 10-20 minutes)...
 python -m pip install --quiet --upgrade pip wheel setuptools
 
-REM Install everything except torch lines from requirements
-python -c "lines=[l for l in open(r'%HERE%packaging\requirements-lock.txt') if l.strip() and not l.startswith('#') and 'torch' not in l]; open(r'%HERE%.tmp.txt','w').writelines(lines)"
-python -m pip install --quiet -r "%HERE%.tmp.txt"
-del "%HERE%.tmp.txt"
+REM Install everything except torch lines from requirements (use PowerShell to filter)
+powershell -Command "Get-Content 'packaging\requirements-lock.txt' | Where-Object { $_.Trim() -ne '' -and -not $_.TrimStart().StartsWith('#') -and -not $_.TrimStart().StartsWith('torch') } | Set-Content -Encoding utf8 '.tmp_reqs.txt'"
+python -m pip install --quiet -r .tmp_reqs.txt
+del .tmp_reqs.txt
 
 echo Installing PyTorch CPU (large download ~1 GB)...
 python -m pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu
