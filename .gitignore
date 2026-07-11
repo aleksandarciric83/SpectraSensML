@@ -37,6 +37,16 @@ Old/
 *.zip
 1.0/
 
+# Installer build-kit source copies (use git clone instead)
+installers/Windows/lt2_core/
+installers/Windows/lt2_gui/
+installers/Windows/packaging/
+installers/Linux/lt2_core/
+installers/Linux/lt2_gui/
+installers/Linux/packaging/
+installers/macOS/
+installers/Spectra/
+
 # macOS
 .DS_Store
 **/.DS_Store
