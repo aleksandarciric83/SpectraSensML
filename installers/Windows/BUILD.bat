@@ -36,8 +36,11 @@ IF ERRORLEVEL 1 (
     echo WARNING: Python 3.11 or 3.12 is recommended. Continuing anyway...
 )
 
-REM ── Create build venv ─────────────────────────────────────────────────
+REM ── Always run from the folder containing this script ────────────────
 SET HERE=%~dp0
+cd /d "%HERE%"
+
+REM ── Create build venv ─────────────────────────────────────────────────
 SET VENV=%HERE%.venv-build
 IF NOT EXIST "%VENV%\Scripts\activate.bat" (
     echo Creating build virtual environment...
@@ -51,9 +54,9 @@ echo Installing dependencies (this may take 10-20 minutes)...
 python -m pip install --quiet --upgrade pip wheel setuptools
 
 REM Install everything except torch lines from requirements
-python -c "lines=[l for l in open('packaging/requirements-lock.txt') if l.strip() and not l.startswith('#') and 'torch' not in l]; open('.tmp.txt','w').writelines(lines)"
-python -m pip install --quiet -r .tmp.txt
-del .tmp.txt
+python -c "lines=[l for l in open(r'%HERE%packaging\requirements-lock.txt') if l.strip() and not l.startswith('#') and 'torch' not in l]; open(r'%HERE%.tmp.txt','w').writelines(lines)"
+python -m pip install --quiet -r "%HERE%.tmp.txt"
+del "%HERE%.tmp.txt"
 
 echo Installing PyTorch CPU (large download ~1 GB)...
 python -m pip install --quiet torch --index-url https://download.pytorch.org/whl/cpu
