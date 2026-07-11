@@ -36,12 +36,12 @@ IF ERRORLEVEL 1 (
     echo WARNING: Python 3.11 or 3.12 is recommended. Continuing anyway...
 )
 
-REM ── Always run from the folder containing this script ────────────────
+REM ── Always run from the repo root (two levels above this script) ─────
 SET HERE=%~dp0
-cd /d "%HERE%"
+cd /d "%HERE%..\.."
 
-REM ── Create build venv ─────────────────────────────────────────────────
-SET VENV=%HERE%.venv-build
+REM ── Create build venv at repo root ───────────────────────────────────
+SET VENV=%CD%\.venv-build
 IF NOT EXIST "%VENV%\Scripts\activate.bat" (
     echo Creating build virtual environment...
     %PYTHON% -m venv "%VENV%"
