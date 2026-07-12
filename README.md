@@ -30,26 +30,20 @@ Download the latest release from the [Releases](../../releases) page:
 |----------|------|
 | Windows 10/11 x64 | `SpectraSensML_*_win64_setup.exe` |
 | macOS (Intel / Apple Silicon) | `SpectraSensML_*_macos.dmg` |
-| Linux x86_64 | `SpectraSensML_*_linux_x86_64.AppImage` |
 
 **macOS note:** the app is not notarized. After dragging to Applications, run once in Terminal:
 ```bash
 xattr -cr "/Applications/SpectraSensML.app"
 ```
 
-**Linux note:** requires `libfuse2`:
-```bash
-sudo apt-get install libfuse2
-chmod +x SpectraSensML_*.AppImage && ./SpectraSensML_*.AppImage
-```
+### Linux / from source
 
-### From source
+Linux users (and anyone who prefers to run from source) can launch the app directly — Python is typically pre-installed:
 
 ```bash
 git clone https://github.com/aleksandarciric83/SpectraSensML.git
 cd SpectraSensML
-pip install PySide6 numpy pandas matplotlib scikit-learn scipy joblib \
-            xgboost lightgbm catboost torch pyinstaller
+pip install -r packaging/requirements-lock.txt
 python -m lt2_gui
 ```
 
