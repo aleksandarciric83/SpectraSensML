@@ -24,14 +24,33 @@ CITATION_NOTE = (
 
 # ── Citation loaded from citation.json ──────────────────────────────────────
 
-def _load_citation() -> dict:
-    """Load citation.json. Returns an empty dict on any failure.
+_CITATION_URL = "https://www.omasgroup.org/citation.json"
+_CITATION_TIMEOUT = 4  # seconds
 
-    Search order:
-    1. Next to this file (dev mode and PyInstaller frozen build both land here).
-    2. sys._MEIPASS / lt2_gui / citation.json (extra safety for frozen builds).
+
+def _load_citation() -> dict:
+    """Load citation data. Returns an empty dict on total failure.
+
+    Fetch order:
+    1. Remote URL (omasgroup.org/citation.json) — always tried first so the
+       citation can be updated without rebuilding the app.
+    2. Local citation.json bundled with the app — used as fallback when
+       offline or the server is unreachable.
     """
     import sys
+
+    # ── 1. Try remote ────────────────────────────────────────────────────────
+    try:
+        from urllib.request import urlopen, Request
+        from urllib.error import URLError
+        req = Request(_CITATION_URL, headers={"User-Agent": "SpectraSensML"})
+        with urlopen(req, timeout=_CITATION_TIMEOUT) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return {k: v for k, v in data.items() if not k.startswith("_")}
+    except Exception:
+        pass  # network unavailable — fall through to local copy
+
+    # ── 2. Fall back to bundled local file ───────────────────────────────────
     candidates: list[Path] = [Path(__file__).resolve().parent / "citation.json"]
     if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
         candidates.append(Path(sys._MEIPASS) / "lt2_gui" / "citation.json")  # type: ignore[attr-defined]
