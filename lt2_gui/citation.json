@@ -1,11 +1,11 @@
 {
-  "_comment": "Edit this file to update the citation shown in the app banner and About tab.",
-  "authors": "A. Ciric et al.",
-  "title": "Full-spectrum machine learning for luminescence thermometry (SpectraSensML)",
-  "journal": "",
-  "volume": "",
-  "pages": "",
-  "year": "",
-  "doi": "",
-  "note": "Manuscript in preparation"
+  "_comment": "Edit this file to update the citation shown in the app banner and About tab. The running app prefers https://www.omasgroup.org/citation.json and falls back to this file.",
+  "authors": "A. Ćirić, Z. Ristić, T. Gavrilović, A. Rajčić, S. Đurković, Ž. Antić, and M. D. Dramićanin",
+  "title": "SpectraSensML Software: Mastering Complete Spectral Information for Luminescence Thermometry 2.0",
+  "journal": "Machine Learning and Knowledge Extraction",
+  "volume": "8",
+  "pages": "238",
+  "year": "2026",
+  "doi": "10.3390/make8080238",
+  "note": ""
 }
